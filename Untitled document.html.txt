@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fansign Maker</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+  }
+  #preview {
+    width: 600px;
+    height: 350px;
+    border-radius: 18px;
+    background: white;
+    border: 3px solid #e3e3e3;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    font-weight: 700;
+    text-align: center;
+  }
+  .controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  input, button {
+    padding: 10px 14px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  button {
+    cursor: pointer;
+    background: black;
+    color: white;
+    border: none;
+  }
+</style>
+</head>
+<body>
+
+
+<h2>Fansign Maker</h2>
+
+
+<div id="preview">Your Fansign Here</div>
+
+
+<div class="controls">
+  <input type="text" id="textInput" placeholder="Enter your name or message…" />
+  <button onclick="downloadFansign()">Download</button>
+</div>
+
+
+<script>
+  const preview = document.getElementById("preview");
+  const input = document.getElementById("textInput");
+
+
+  input.addEventListener("input", () => {
+    preview.textContent = input.value || "Your Fansign Here";
+  });
+
+
+  function downloadFansign() {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1200;
+    canvas.height = 700;
+    const ctx = canvas.getContext("2d");
+
+
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
+    ctx.font = "70px Arial";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(input.value || "Your Fansign Here", canvas.width / 2, canvas.height / 2);
+
+
+    const link = document.createElement("a");
+    link.download = "fansign.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+</script>
+
+
+</body>
+</html>
